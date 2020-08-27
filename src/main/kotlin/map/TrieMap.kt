@@ -10,74 +10,72 @@ import java.util.*
 /**
  * 创建一个字典树
  */
-class TrieMap<V> {
+class TrieMap<V> : Map<String, V> {
 
     private companion object {
         const val R = 256
     }
 
     private var root = Node<V>()
-    var size = 0
+    override var size = 0
         private set
 
     /**
      * 运算符重载，允许使用下标访问字典
      */
-    operator fun set(k: String, v: V) {
-        put(k, v)
+    override operator fun set(key: String, value: V) {
+        put(key, value)
     }
 
     /**
-     * 向字典树中插入键值对，键为[k]，值为[v]
+     * 向字典树中插入键值对，键为[key]，值为[value]
      */
-    fun put(k: String, v: V) {
-        if (k.isBlank()) throw IllegalArgumentException("The blank key isn't supported")
+    override fun put(key: String, value: V) {
+        if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         fun put(x: Node<V>, d: Int) {
-            if (d < k.length) {
-                val c = k[d].toInt()
+            if (d == key.length) {
+                if (x.value == null) size++
+                x.value = value
+                return
+            } else {
+                val c = key[d].toInt()
                 if (x.next[c] == null) x.next[c] = Node()
-                if (d == k.length - 1) {
-                    if (x.next[c]!!.value == null) size++
-                    x.next[c]!!.value = v
-                } else {
-                    put(x.next[c]!!, d + 1)
-                }
+                put(x.next[c]!!, d + 1)
             }
         }
-
         put(root, 0)
     }
 
     /**
-     * 返回键[k]对应的值
+     * 返回键[key]对应的值
      * 运算符重载，允许使用下标访问字典
      */
-    operator fun get(k: String): V? {
-        return get(root, k, 0)?.value
+    override operator fun get(key: String): V? {
+        return get(root, key, 0)?.value
     }
 
-    private fun get(x: Node<V>, k: String, d: Int): Node<V>? {
-        if (d < k.length) {
-            val c = k[d].toInt()
+    private fun get(x: Node<V>, key: String, d: Int): Node<V>? {
+        if (d == key.length) {
+            return x
+        } else {
+            val c = key[d].toInt()
             if (x.next[c] == null) return null
-            if (d == k.length - 1) return x.next[c]
-            return get(x.next[c]!!, k, d + 1)
+            return get(x.next[c]!!, key, d + 1)
         }
-        return root
     }
 
     /**
-     * 运算符重载，允许使用in判断键[k]是否在字典中
+     * 运算符重载，允许使用in判断键[key]是否在字典中
      */
-    operator fun contains(k: String): Boolean {
-        return get(k) != null
+    override operator fun contains(key: String): Boolean {
+        return get(key) != null
     }
 
 
     /**
      * 判断字典是否为空
      */
-    fun isEmpty(): Boolean {
+    override fun isEmpty(): Boolean {
         return size == 0
     }
 
@@ -108,7 +106,7 @@ class TrieMap<V> {
         fun collect(x: Node<V>, pre: String) {
             if (pre.length == pat.length) {
                 x.value?.let { queue.addLast(pre) }
-            } else if (pre.length < pat.length) {
+            } else {
                 val d = pat[pre.length]
                 for (c in 0 until R) {
                     if ((d == '.' || d == c.toChar()) && x.next[c] != null) {
@@ -126,14 +124,13 @@ class TrieMap<V> {
      * 查找[s]的前缀中最长的键
      */
     fun longestPrefixOf(s: String): String {
+        if (s.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         var length = 0
         fun search(x: Node<V>, d: Int) {
-            if (d < s.length) {
-                val c = s[d].toInt()
-                x.next[c]?.let {
-                    length = d + 1
-                    if (d < s.length) search(x.next[c]!!, length)
-                }
+            val c = s[d].toInt()
+            x.next[c]?.let {
+                length = d + 1
+                if (d < s.length) search(x.next[c]!!, length)
             }
         }
         search(root, 0)
@@ -141,23 +138,22 @@ class TrieMap<V> {
     }
 
     /**
-     * 删除键[k]和[k]对应的值
+     * 删除键[key]和[key]对应的值
      */
-    fun remove(k: String): V? {
+    override fun remove(key: String): V? {
         var result: V? = null
         fun remove(x: Node<V>, d: Int): Node<V>? {
-            if (d == k.length) {
+            if (d == key.length) {
                 x.value?.let {
                     result = it
                     x.value = null
                     size--
                 }
             } else {
-                val c = k[d].toInt()
-                if (x.next[c] == null) return x
-                x.next[c] = remove(x.next[c]!!, d + 1)
-                if (x.value != null) return x
+                val c = key[d].toInt()
+                if (x.next[c] != null) x.next[c] = remove(x.next[c]!!, d + 1)
             }
+            if (x.value != null) return x
             for (r in 0 until R) {
                 if (x.next[r] != null) return x
             }
