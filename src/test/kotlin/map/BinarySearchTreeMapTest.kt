@@ -2,53 +2,59 @@ package map
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class BinarySearchTreeMapTest {
 
+    lateinit var map: BinarySearchTreeMap<String, Int>
+
+    @BeforeEach
+    fun setUp() {
+        map = BinarySearchTreeMap()
+    }
+
     @Test
     fun set() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 5
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
         map["abc"] = 6
-        assertEquals(map["abc"], 6)
+        assertEquals(6, map["abc"])
     }
 
     @Test
     fun put() {
-        val map = BinarySearchTreeMap<String, Int>()
         map.put("abc", 5)
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
         map.put("abc", 6)
-        assertEquals(map["abc"], 6)
+        assertEquals(6, map["abc"])
+        repeat(100000) {
+            map["$it"] = it
+        }
+        assertEquals(100001, map.size)
     }
 
     @Test
     fun get() {
-        val map = BinarySearchTreeMap<String, Int>()
         map.put("  ", 7)
-        assertEquals(map["  "], 7)
+        assertEquals(7, map["  "])
         map["abc"] = 5
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
     }
 
     @Test
     fun contains() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 5
         assertTrue("abc" in map)
     }
 
     @Test
     fun isEmpty() {
-        val map = BinarySearchTreeMap<String, Int>()
         assertTrue { map.isEmpty() }
     }
 
     @Test
     fun getSize() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 5
         assertEquals(1, map.size)
         map["abc"] = 2
@@ -63,7 +69,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun select() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
@@ -76,7 +81,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun rank() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
@@ -89,7 +93,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun min() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
@@ -99,7 +102,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun max() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
@@ -109,7 +111,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun floor() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["ac"] = 5
         map["aa"] = 4
@@ -119,7 +120,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun ceiling() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["a"] = 6
         map["aa"] = 5
         map["ac"] = 4
@@ -128,7 +128,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun removeMin() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
@@ -143,7 +142,6 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun removeMax() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
@@ -158,34 +156,31 @@ internal class BinarySearchTreeMapTest {
 
     @Test
     fun remove() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
-        map["abcd"] = 4
-        map.remove("a")
+        map["abcd"] = 8
+        assertEquals(4, map.remove("a"))
         assertEquals(3, map.size)
         assertEquals("ab", map.min())
-        map.remove("abcd")
+        assertEquals(8, map.remove("abcd"))
         assertEquals(2, map.size)
         assertEquals("abc", map.max())
     }
 
     @Test
     fun keys() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["abc"] = 6
         map["a"] = 4
         map["ab"] = 5
         map["abcd"] = 4
-        assertEquals(4, map.keys().count())
+        assertEquals(4, map.keys.count())
         map.remove("a")
-        assertEquals(3, map.keys().count())
+        assertEquals(3, map.keys.count())
     }
 
     @Test
     fun keysWithRange() {
-        val map = BinarySearchTreeMap<String, Int>()
         map["af"] = 6
         map["ad"] = 4
         map["ac"] = 5

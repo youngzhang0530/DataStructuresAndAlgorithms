@@ -2,14 +2,20 @@ package map
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class TrieMapTest {
+    lateinit var map: TrieMap<Int>
+
+    @BeforeEach
+    fun setUp() {
+        map = TrieMap()
+    }
 
     @Test
     fun getSize() {
-        val map = TrieMap<Int>()
         map["abc"] = 5
         assertEquals(1, map.size)
         map["abcd"] = 5
@@ -18,50 +24,48 @@ internal class TrieMapTest {
 
     @Test
     fun set() {
-        val map = TrieMap<Int>()
         map["abc"] = 5
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
         map["abc"] = 6
-        assertEquals(map["abc"], 6)
+        assertEquals(6, map["abc"])
     }
 
     @Test
     fun put() {
-        val map = TrieMap<Int>()
         map.put("abc", 5)
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
         map.put("abc", 6)
-        assertEquals(map["abc"], 6)
+        assertEquals(6, map["abc"])
         map.put("  ", 7)
-        assertEquals(map["  "], 7)
+        assertEquals(7, map["  "])
         assertFailsWith<IllegalArgumentException> { map[""] = 8 }
+        repeat(100000) {
+            map["$it"] = it
+        }
+        assertEquals(100002, map.size)
     }
 
     @Test
     fun get() {
-        val map = TrieMap<Int>()
         map.put("  ", 7)
-        assertEquals(map["  "], 7)
+        assertEquals(7, map["  "])
         map["abc"] = 5
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
     }
 
     @Test
     fun contains() {
-        val map = TrieMap<Int>()
         map["abc"] = 5
         assertTrue("abc" in map)
     }
 
     @Test
     fun isEmpty() {
-        val map = TrieMap<Int>()
         assertTrue { map.isEmpty() }
     }
 
     @Test
     fun keysWithPrefix() {
-        val map = TrieMap<Int>()
         map["a"] = 5
         map["ab"] = 6
         map.put("  ", 7)
@@ -72,7 +76,6 @@ internal class TrieMapTest {
 
     @Test
     fun keysThatMatch() {
-        val map = TrieMap<Int>()
         map["a"] = 5
         map["abd"] = 6
         map["abc"] = 7
@@ -81,7 +84,6 @@ internal class TrieMapTest {
 
     @Test
     fun longestPrefixOf() {
-        val map = TrieMap<Int>()
         map["a"] = 5
         map["ab"] = 6
         map["abc"] = 7
@@ -90,21 +92,19 @@ internal class TrieMapTest {
 
     @Test
     fun remove() {
-        val map = TrieMap<Int>()
         map["a"] = 5
         map["abc"] = 6
         map["abcd"] = 6
         assertEquals(6, map.remove("abcd"))
         assertEquals(2, map.size)
-        assertEquals(2, map.keys().count())
+        assertEquals(2, map.keys.count())
     }
 
     @Test
     fun keys() {
-        val map = TrieMap<Int>()
         map["a"] = 5
         map["abc"] = 6
         map["abcd"] = 6
-        assertEquals(3, map.keys().count())
+        assertEquals(3, map.keys.count())
     }
 }

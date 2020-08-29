@@ -2,15 +2,20 @@ package map
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class TernarySearchTreeMapTest {
+    lateinit var map: TernarySearchTreeMap<Int>
 
+    @BeforeEach
+    fun setUp() {
+        map = TernarySearchTreeMap()
+    }
 
     @Test
     fun getSize() {
-        val map = TernarySearchTreeMap<Int>()
         map["abc"] = 5
         assertEquals(1, map.size)
         map["abcd"] = 5
@@ -19,64 +24,50 @@ internal class TernarySearchTreeMapTest {
 
     @Test
     fun set() {
-        val map = TernarySearchTreeMap<Int>()
         map["abc"] = 5
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
         map["abc"] = 6
-        assertEquals(map["abc"], 6)
+        assertEquals(6, map["abc"])
     }
 
     @Test
     fun put() {
-        val map = TernarySearchTreeMap<Int>()
-        map.put("abc", 5)
-        assertEquals(map["abc"], 5)
-        map.put("abc", 6)
-        assertEquals(map["abc"], 6)
-        map.put("  ", 7)
-        assertEquals(map["  "], 7)
+        map.put("a", 5)
+        assertEquals(5, map["a"])
+        map.put("ab", 6)
+        assertEquals(6, map["ab"])
+        map.put("abc", 7)
+        assertEquals(7, map["abc"])
+        map.put("akd", 7)
+        assertEquals(7, map["akd"])
         assertFailsWith<IllegalArgumentException> { map[""] = 8 }
+        assertEquals(4, map.size)
     }
 
     @Test
     fun get() {
-        val map = TernarySearchTreeMap<Int>()
         map.put("  ", 7)
-        assertEquals(map["  "], 7)
+        assertEquals(7, map["  "])
         map["abc"] = 5
-        assertEquals(map["abc"], 5)
+        assertEquals(5, map["abc"])
     }
 
     @Test
     fun contains() {
-        val map = TernarySearchTreeMap<Int>()
         map["abc"] = 5
         assertTrue("abc" in map)
     }
 
     @Test
     fun isEmpty() {
-        val map = TernarySearchTreeMap<Int>()
         assertTrue { map.isEmpty() }
     }
 
     @Test
-    fun remove() {
-        val map = TernarySearchTreeMap<Int>()
-        map["a"] = 5
-        map["abc"] = 6
-        map["abcd"] = 6
-        assertEquals(6, map.remove("abcd"))
-        assertEquals(2, map.size)
-        assertEquals(2, map.keys().count())
-    }
-
-    @Test
     fun keys() {
-        val map = TernarySearchTreeMap<Int>()
         map["a"] = 5
         map["abc"] = 6
         map["abcd"] = 6
-        assertEquals(3, map.keys().count())
+        assertEquals(3, map.keys.count())
     }
 }

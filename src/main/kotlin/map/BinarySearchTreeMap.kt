@@ -3,11 +3,14 @@ package map
 /**
  * 使用二分搜索树实现的Map
  */
+
+/**
+ * 创建一个二分搜索树
+ */
 class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
 
-    override var size = 0
+    override val size
         get() = sizeOf(root)
-        private set
 
     private var root: Node<K, V>? = null
 
@@ -22,7 +25,6 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
      * 向字典树中插入键值对，键为[key]，值为[value]
      */
     override fun put(key: K, value: V) {
-
         fun put(x: Node<K, V>?): Node<K, V> {
             if (x == null) {
                 return Node(key, value)
@@ -36,7 +38,9 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
                     x.right = put(x.right)
                     x.size = sizeOf(x.left) + sizeOf(x.right) + 1
                 }
-                else -> x.value = value
+                else -> {
+                    x.value = value
+                }
             }
             return x
         }
@@ -234,10 +238,11 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
     /**
      * 获取字典中所有的键
      */
-    fun keys(): Iterable<K> {
-        if (root == null) return emptyList()
-        return keys(min()!!, max()!!)
-    }
+    override val keys: Iterable<K>
+        get() {
+            if (root == null) return emptyList()
+            return keys(min()!!, max()!!)
+        }
 
     /**
      * 获取字典中范围在[from]到[to]之间的键

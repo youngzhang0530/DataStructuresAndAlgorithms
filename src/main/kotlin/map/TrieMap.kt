@@ -34,7 +34,9 @@ class TrieMap<V> : Map<String, V> {
         if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         fun put(x: Node<V>, d: Int) {
             if (d == key.length) {
-                if (x.value == null) size++
+                if (x.value == null) {
+                    size++
+                }
                 x.value = value
                 return
             } else {
@@ -166,9 +168,8 @@ class TrieMap<V> : Map<String, V> {
     /**
      * 获取字典中所有的键
      */
-    fun keys(): Iterable<String> {
-        return keysWithPrefix("")
-    }
+    override val keys: Iterable<String>
+        get() = keysWithPrefix("")
 
     private class Node<V>(var value: V? = null, var next: Array<Node<V>?> = arrayOfNulls(R))
 }
