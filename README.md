@@ -1,11 +1,22 @@
 ## DataStructuresAndAlgorithms
 数据结构与算法的Kotlin语言实现
++ List
+    + [ArrayList(动态数组)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/list/ArrayList.kt)
++ Queue
+    + [MinHeapPriorityQueue(基于最小堆的优先队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/MinHeapPriorityQueue.kt)
 + Set
-    + [DisjointSet（并查集）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/DisjointSet.kt)
+    + [DisjointSet(并查集)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/DisjointSet.kt)
 + Map
-    + [BinarySearchTreeMap（基于二分搜索树）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/BinarySearchTreeMap.kt)
-    + [TrieMap（基于字典树）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TrieMap.kt)
-    + [TernarySearchTreeMap（基于三向字典树）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TernarySearchTreeMap.kt)
-    + [LinkedMap（基于无序链表）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinkedMap.kt)
-    + [SeparateChainingHashMap（基于拉链法的哈希表）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/SeparateChainingHashMap.kt)
-    + [LinearProbingHashMap（基于线性探测法的哈希表）](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinearProbingHashMap.kt)
+    + [BinarySearchTreeMap(二分搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/BinarySearchTreeMap.kt)
+    + [TrieMap(字典树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TrieMap.kt)
+    + [TernarySearchTreeMap(三向字典树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TernarySearchTreeMap.kt)
+    + [LinkedMap(基于无序链表的Map)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinkedMap.kt)
+    + [SeparateChainingHashMap(基于拉链法的哈希表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/SeparateChainingHashMap.kt)
+    + [LinearProbingHashMap(基于线性探测法的哈希表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinearProbingHashMap.kt)
++ Sort
+    + [heapSort(堆排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/sort/heapSort.kt)
+    + [insertSort(插入排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/sort/insertSort.kt)
+    + [mergeSort(归并排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/sort/mergeSort.kt)
+    + [quickSort(快速排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/sort/quickSort.kt)
+    + [selectSort(选择排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/sort/selectSort.kt)
+    + [shellSort(希尔排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/sort/shellSort.kt)
