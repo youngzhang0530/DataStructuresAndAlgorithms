@@ -2,9 +2,14 @@
 数据结构与算法的Kotlin语言实现
 + List
     + [ArrayList(动态数组)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/list/ArrayList.kt)
+    + [LinkedList(链表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/list/LinkedList.kt)
 + Queue
+    + [ArrayQueue(循环队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/ArrayQueue.kt)
+    + [LinkedQueue(基于双向链表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/LinkedQueue.kt)
     + [MinHeapPriorityQueue(基于最小堆的优先队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/MinHeapPriorityQueue.kt)
 + Set
+    + [HashSet(基于哈希表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/HashSet.kt)
+    + [BinarySearchTreeSet(基于二分搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/BinarySearchTreeSet.kt)
     + [DisjointSet(并查集)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/DisjointSet.kt)
 + Map
     + [BinarySearchTreeMap(二分搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/BinarySearchTreeMap.kt)

@@ -1,6 +1,6 @@
 package queue
 
-interface Queue<E : Comparable<E>> {
+interface Queue<E> {
     val size: Int
     fun add(e: E)
     fun remove(): E

@@ -42,6 +42,7 @@ internal class TernarySearchTreeMapTest {
         assertEquals(7, map["akd"])
         assertFailsWith<IllegalArgumentException> { map[""] = 8 }
         assertEquals(4, map.size)
+        assertEquals(6, map.put("ab", 5))
     }
 
     @Test

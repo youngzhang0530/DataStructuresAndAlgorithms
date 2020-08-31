@@ -34,7 +34,7 @@ class MinHeapPriorityQueue<E : Comparable<E>> : Queue<E> {
     }
 
     override fun peek(): E {
-        return elements[0] as E
+        return (elements[0] ?: throw NoSuchElementException()) as E
     }
 
     override fun isEmpty(): Boolean {

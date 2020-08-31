@@ -30,13 +30,15 @@ class TrieMap<V> : Map<String, V> {
     /**
      * 向字典树中插入键值对，键为[key]，值为[value]
      */
-    override fun put(key: String, value: V) {
+    override fun put(key: String, value: V): V? {
         if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
+        var result: V? = null
         fun put(x: Node<V>, d: Int) {
             if (d == key.length) {
                 if (x.value == null) {
                     size++
                 }
+                result = x.value
                 x.value = value
                 return
             } else {
@@ -46,6 +48,7 @@ class TrieMap<V> : Map<String, V> {
             }
         }
         put(root, 0)
+        return result
     }
 
     /**

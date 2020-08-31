@@ -1,23 +1,16 @@
 package list
 
 /**
- * 动态数组
+ * 链表
  */
-@Suppress("UNCHECKED_CAST")
-class ArrayList<E> : List<E> {
-    private companion object {
-        const val DEFAULT_CAPACITY = 1 shl 4
-    }
+class LinkedList<E> : List<E> {
+
+    private val dummyHead = Node<E>()
 
     /**
      * 返回列表中元素的数量
      */
     override var size = 0
-        private set
-
-    private var capacity = DEFAULT_CAPACITY
-
-    private var elements = Array<Any?>(capacity) { null }
 
     /**
      * 判断列表是否为空
@@ -31,11 +24,13 @@ class ArrayList<E> : List<E> {
      */
     override fun add(index: Int, e: E) {
         checkPositionIndex(index)
-        if (size == capacity) resize(capacity shl 1)
-        for (i in size - 1 downTo index + 1) {
-            elements[i] = elements[i - 1]
+        var i = 0
+        var current = dummyHead
+        while (i < index) {
+            current = current.next!!
+            i++
         }
-        elements[index] = e
+        current.next = Node(e, current.next)
         size++
     }
 
@@ -51,7 +46,13 @@ class ArrayList<E> : List<E> {
      */
     override fun get(index: Int): E {
         checkElementIndex(index)
-        return elements[index] as E
+        var i = 0
+        var current = dummyHead
+        while (i <= index) {
+            current = current.next!!
+            i++
+        }
+        return current.value!!
     }
 
     /**
@@ -59,27 +60,34 @@ class ArrayList<E> : List<E> {
      */
     override fun set(index: Int, e: E): E {
         checkElementIndex(index)
-        val result = elements[index]
-        elements[index] = e
-        return result as E
+        var i = 0
+        var current = dummyHead
+        while (i <= index) {
+            current = current.next!!
+            i++
+        }
+        val result = current.value!!
+        current.value = e
+        return result
     }
 
     /**
      * 判断列表中是否包含元素[e]
      */
     override fun contains(e: E): Boolean {
-        for (i in elements) {
-            if (i == e) return true
-        }
-        return false
+        return indexOf(e) != -1
     }
 
     /**
      * 返回元素[e]在列表中的索引，返回-1表示列表中不存在元素[e]
      */
     override fun indexOf(e: E): Int {
-        for (i in elements.indices) {
-            if (elements[i] == e) return i
+        var i = 0
+        var current: Node<E>? = dummyHead
+        while (i < size) {
+            current = current!!.next
+            if (current!!.value == e) return i
+            i++
         }
         return -1
     }
@@ -89,32 +97,34 @@ class ArrayList<E> : List<E> {
      */
     override fun removeAt(index: Int): E {
         checkElementIndex(index)
-        val result = elements[index]
-        for (i in index + 1 until size - 1) {
-            elements[i - 1] = elements[i]
+        var i = 0
+        var current = dummyHead
+        while (i < index) {
+            current = current.next!!
+            i++
         }
-        elements[size - 1] = null
+        val result = current.next!!.value!!
+        current.next = current.next!!.next
         size--
-        if (size == capacity shr 2 && capacity shr 2 > DEFAULT_CAPACITY) resize(capacity shr 1)
-        return result as E
+        return result
     }
 
     /**
      * 删除元素[e]
      */
     override fun remove(e: E): Boolean {
-        for (i in elements.indices) {
-            if (elements[i] == e) {
-                removeAt(i)
+        var i = 0
+        var current = dummyHead
+        while (i < size) {
+            if (current.next!!.value == e) {
+                current.next = current.next!!.next
+                size--
                 return true
             }
+            current = current.next!!
+            i++
         }
         return false
-    }
-
-    private fun resize(newCapacity: Int) {
-        elements = elements.copyOf(newCapacity)
-        capacity = newCapacity
     }
 
     private fun checkPositionIndex(index: Int) {
@@ -124,4 +134,6 @@ class ArrayList<E> : List<E> {
     private fun checkElementIndex(index: Int) {
         if (index !in 0 until size) throw IndexOutOfBoundsException("Index: $index, Size: $size")
     }
+
+    private class Node<E>(var value: E? = null, var next: Node<E>? = null)
 }

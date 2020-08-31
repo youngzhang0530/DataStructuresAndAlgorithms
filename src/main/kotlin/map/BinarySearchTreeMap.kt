@@ -22,9 +22,10 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
     }
 
     /**
-     * 向字典树中插入键值对，键为[key]，值为[value]
+     * 向树中插入键值对，键为[key]，值为[value]
      */
-    override fun put(key: K, value: V) {
+    override fun put(key: K, value: V): V? {
+        var result: V? = null
         fun put(x: Node<K, V>?): Node<K, V> {
             if (x == null) {
                 return Node(key, value)
@@ -39,6 +40,7 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
                     x.size = sizeOf(x.left) + sizeOf(x.right) + 1
                 }
                 else -> {
+                    result = x.value
                     x.value = value
                 }
             }
@@ -46,6 +48,7 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
         }
 
         root = put(root)
+        return result
     }
 
     /**
@@ -58,8 +61,8 @@ class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
 
     private fun get(x: Node<K, V>?, key: K): Node<K, V>? {
         if (x == null) return null
-        if (key < x.key && x.left != null) return get(x.left, key)
-        if (key > x.key && x.right != null) return get(x.right, key)
+        if (key < x.key) return get(x.left, key)
+        if (key > x.key) return get(x.right, key)
         return x
     }
 

@@ -1,7 +1,10 @@
 package map
 
+/**
+ * 基于线性探测法的哈希表
+ */
 @Suppress("UNCHECKED_CAST")
-class LinearProbingHashMap<K : Comparable<K>, V> : Map<K, V> {
+class LinearProbingHashMap<K, V> : Map<K, V> {
     private companion object {
         const val DEFAULT_CAPACITY = 1 shl 4
     }
@@ -10,8 +13,8 @@ class LinearProbingHashMap<K : Comparable<K>, V> : Map<K, V> {
 
     override var size = 0
         private set
-    private var keyArray = Array<Any?>(capacity) { null }
-    private var valueArray = Array<Any?>(capacity) { null }
+    private var keyArray = arrayOfNulls<Any>(capacity)
+    private var valueArray = arrayOfNulls<Any>(capacity)
 
     /**
      * 运算符重载，允许使用下标访问
@@ -21,16 +24,19 @@ class LinearProbingHashMap<K : Comparable<K>, V> : Map<K, V> {
     }
 
     /**
-     * 向字典树中插入键值对，键为[key]，值为[value]
+     * 向字典中插入键值对，键为[key]，值为[value]
      * 如果字典中键的数目发生变化，则返回true
      */
-    override fun put(key: K, value: V) {
+    override fun put(key: K, value: V): V? {
+        val result: Any?
         if (size == capacity shr 1) resize(capacity shl 1)
         var index = hash(key)
         while (keyArray[index] != null && (keyArray[index] as K) != key) index = (index + 1) % capacity
         if (keyArray[index] == null) size++
+        result = valueArray[index]
         keyArray[index] = key
         valueArray[index] = value
+        return result as V?
     }
 
     /**

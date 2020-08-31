@@ -22,16 +22,18 @@ class LinkedMap<K : Comparable<K>, V> : Map<K, V>, Iterable<Pair<K, V>> {
     }
 
     /**
-     * 向字典树中插入键值对，键为[key]，值为[value]
-     * 如果字典中键的数目发生变化，则返回true
+     * 向树中插入键值对，键为[key]，值为[value]
+     * 如果树中键的数目发生变化，则返回true
      */
-    override fun put(key: K, value: V) {
+    override fun put(key: K, value: V): V? {
+        var result: V? = null
         fun put(x: Node<K, V>?): Node<K, V> {
             if (x == null) {
                 size++
                 return Node(key, value)
             }
             if (x.key == key) {
+                result = x.value
                 x.value = value
                 return x
             }
@@ -39,6 +41,7 @@ class LinkedMap<K : Comparable<K>, V> : Map<K, V>, Iterable<Pair<K, V>> {
             return x
         }
         dummyHead.next = put(dummyHead.next)
+        return result
     }
 
     /**

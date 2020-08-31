@@ -25,7 +25,7 @@ internal class LinkedMapTest {
     fun put() {
         map.put("abc", 5)
         assertEquals(5, map["abc"])
-        map.put("abc", 6)
+        assertEquals(5, map.put("abc", 6))
         assertEquals(6, map["abc"])
         repeat(10000) {
             map["$it"] = it

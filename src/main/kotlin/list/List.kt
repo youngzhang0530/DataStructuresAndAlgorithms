@@ -3,12 +3,12 @@ package list
 interface List<E> {
 
     /**
-     * List中元素的数量
+     * 列表中元素的数量
      */
     val size: Int
 
     /**
-     * 判断List是否为空
+     * 判断列表是否为空
      */
     fun isEmpty(): Boolean
 
@@ -18,7 +18,7 @@ interface List<E> {
     fun add(index: Int, e: E)
 
     /**
-     * 向List的末尾添加元素
+     * 向列表的末尾添加元素
      */
     fun add(e: E)
 
@@ -33,7 +33,7 @@ interface List<E> {
     fun set(index: Int, e: E): E
 
     /**
-     * 判断List中是否存在元素[e]
+     * 判断列表中是否存在元素[e]
      */
     operator fun contains(e: E): Boolean
 

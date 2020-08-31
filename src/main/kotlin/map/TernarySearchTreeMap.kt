@@ -46,8 +46,9 @@ class TernarySearchTreeMap<V> : Map<String, V> {
     /**
      * 向字典树中插入键值对，键为[key]，值为[value]
      */
-    override fun put(key: String, value: V) {
+    override fun put(key: String, value: V): V? {
         if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
+        var result: V? = null
         fun put(x: Node<V>?, d: Int): Node<V> {
             val c = key[d]
             var node = x
@@ -64,6 +65,7 @@ class TernarySearchTreeMap<V> : Map<String, V> {
                 c > node.c -> node.right = put(node.right, d)
                 else -> {
                     if (d == key.length - 1) {
+                        result = node.value
                         node.value = value
                     } else {
                         node.mid = put(node.mid, d + 1)
@@ -74,6 +76,7 @@ class TernarySearchTreeMap<V> : Map<String, V> {
         }
 
         root = put(root, 0)
+        return result
     }
 
     /**

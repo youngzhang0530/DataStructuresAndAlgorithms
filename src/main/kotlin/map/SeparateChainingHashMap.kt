@@ -1,5 +1,8 @@
 package map
 
+/**
+ * 基于拉链法的哈希表
+ */
 class SeparateChainingHashMap<K : Comparable<K>, V> : Map<K, V> {
     private companion object {
         const val DEFAULT_CAPACITY = 1 shl 4
@@ -22,10 +25,10 @@ class SeparateChainingHashMap<K : Comparable<K>, V> : Map<K, V> {
      * 向字典树中插入键值对，键为[key]，值为[value]
      * 如果字典中键的数目发生变化，则返回true
      */
-    override fun put(key: K, value: V) {
+    override fun put(key: K, value: V): V? {
         if (size == 8 * capacity) resize(capacity shl 1)
         if (!table[hash(key)].contains(key)) size++
-        table[hash(key)][key] = value
+        return table[hash(key)].put(key, value)
     }
 
     /**

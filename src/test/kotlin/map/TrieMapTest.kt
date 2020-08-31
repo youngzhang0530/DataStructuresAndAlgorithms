@@ -34,7 +34,7 @@ internal class TrieMapTest {
     fun put() {
         map.put("abc", 5)
         assertEquals(5, map["abc"])
-        map.put("abc", 6)
+        assertEquals(5, map.put("abc", 6))
         assertEquals(6, map["abc"])
         map.put("  ", 7)
         assertEquals(7, map["  "])

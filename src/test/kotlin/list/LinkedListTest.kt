@@ -5,12 +5,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
-internal class ArrayListTest {
-    lateinit var list: ArrayList<Int>
+internal class LinkedListTest {
+    lateinit var list: LinkedList<Int>
 
     @BeforeEach
     fun setUp() {
-        list = ArrayList()
+        list = LinkedList()
     }
 
     @Test
