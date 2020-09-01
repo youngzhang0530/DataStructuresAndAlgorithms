@@ -13,7 +13,7 @@ class ArrayQueue<E> : Queue<E> {
     private var head = 0
     private var tail = 0
     private var capacity = DEFAULT_CAPACITY
-    private var elements = Array<Any?>(capacity) { null }
+    private var elements = arrayOfNulls<Any>(capacity)
 
     /**
      * 返回队列中元素的数量
@@ -42,7 +42,7 @@ class ArrayQueue<E> : Queue<E> {
         val result = elements[head]
         elements[head] = null
         head = (head + 1 + capacity) % capacity
-        if (size == capacity shr 2 && capacity shr 2 > DEFAULT_CAPACITY) resize(capacity shr 1)
+        if (size == capacity shr 2 && capacity shr 2 >= DEFAULT_CAPACITY) resize(capacity shr 1)
         return result as E
     }
 

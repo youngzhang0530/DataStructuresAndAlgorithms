@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 internal class BinarySearchTreeMapTest {
 
-    lateinit var map: BinarySearchTreeMap<String, Int>
+    private lateinit var map: BinarySearchTreeMap<String, Int>
 
     @BeforeEach
     fun setUp() {

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class MinHeapPriorityQueueTest {
-    lateinit var queue: MinHeapPriorityQueue<Int>
+    private lateinit var queue: MinHeapPriorityQueue<Int>
 
     @BeforeEach
     fun setUp() {

@@ -1,14 +1,20 @@
 package set
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
 
 internal class DisjointSetTest {
+    private lateinit var set: DisjointSet
+
+    @BeforeEach
+    fun setUp() {
+        set = DisjointSet(200)
+    }
 
     @Test
     fun getSize() {
-        val set = DisjointSet(200)
         assertEquals(200, set.size)
         set.union(1, 100)
         assertEquals(199, set.size)
@@ -16,7 +22,6 @@ internal class DisjointSetTest {
 
     @Test
     fun union() {
-        val set = DisjointSet(200)
         set.union(1, 100)
         assertEquals(199, set.size)
         set.union(1, 50)
@@ -25,7 +30,6 @@ internal class DisjointSetTest {
 
     @Test
     fun find() {
-        val set = DisjointSet(200)
         set.union(1, 100)
         set.union(1, 50)
         assertEquals(set.find(50), set.find(100))
@@ -33,7 +37,6 @@ internal class DisjointSetTest {
 
     @Test
     fun isConnected() {
-        val set = DisjointSet(200)
         set.union(1, 100)
         set.union(1, 50)
         assertTrue { set.isConnected(50, 100) }

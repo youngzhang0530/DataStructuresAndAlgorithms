@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class LinkedQueueTest {
-    lateinit var queue: LinkedQueue<Int>
+    private lateinit var queue: LinkedQueue<Int>
 
     @BeforeEach
     fun setUp() {
@@ -39,6 +39,9 @@ internal class LinkedQueueTest {
     @Test
     fun remove() {
         assertFailsWith<NoSuchElementException> { queue.remove() }
+        repeat(10000) {
+            queue.add(it)
+        }
         queue.apply {
             add(1)
             add(8)
@@ -46,6 +49,9 @@ internal class LinkedQueueTest {
             add(1)
             add(8)
             add(9)
+        }
+        repeat(10000) {
+            queue.remove()
         }
         assertEquals(1, queue.remove())
         assertEquals(8, queue.remove())

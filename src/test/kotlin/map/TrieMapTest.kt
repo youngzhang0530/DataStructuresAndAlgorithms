@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class TrieMapTest {
-    lateinit var map: TrieMap<Int>
+    private lateinit var map: TrieMap<Int>
 
     @BeforeEach
     fun setUp() {
@@ -70,7 +70,8 @@ internal class TrieMapTest {
         map["ab"] = 6
         map.put("  ", 7)
         map["abc"] = 7
-        assertEquals(3, map.keysWithPrefix("a").count())
+        map["abk"] = 8
+        assertEquals(4, map.keysWithPrefix("a").count())
         assertEquals(1, map.keysWithPrefix(" ").count())
     }
 
@@ -79,7 +80,11 @@ internal class TrieMapTest {
         map["a"] = 5
         map["abd"] = 6
         map["abc"] = 7
-        assertEquals(2, map.keysThatMatch(".b.").count())
+        assertEquals(1, map.keysThatMatch("..d").count())
+        assertEquals(2, map.keysThatMatch("...").count())
+        assertEquals(1, map.keysThatMatch(".").count())
+        assertEquals(1, map.keysThatMatch("..c").count())
+        assertEquals(2, map.keysThatMatch("ab.").count())
     }
 
     @Test

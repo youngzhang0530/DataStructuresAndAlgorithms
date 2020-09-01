@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class ArrayQueueTest {
-    lateinit var queue: ArrayQueue<Int>
+    private lateinit var queue: ArrayQueue<Int>
 
     @BeforeEach
     fun setUp() {
@@ -42,6 +42,9 @@ internal class ArrayQueueTest {
     @Test
     fun remove() {
         assertFailsWith<NoSuchElementException> { queue.remove() }
+        repeat(10000) {
+            queue.add(it)
+        }
         queue.apply {
             add(1)
             add(8)
@@ -49,6 +52,9 @@ internal class ArrayQueueTest {
             add(1)
             add(8)
             add(9)
+        }
+        repeat(10000) {
+            queue.remove()
         }
         assertEquals(1, queue.remove())
         assertEquals(8, queue.remove())

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class SeparateChainingHashMapTest {
-    lateinit var map: SeparateChainingHashMap<String, Int>
+    private lateinit var map: SeparateChainingHashMap<String, Int>
 
     @BeforeEach
     fun setUp() {

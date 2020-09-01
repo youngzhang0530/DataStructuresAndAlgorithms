@@ -9,7 +9,7 @@ class MinHeapPriorityQueue<E : Comparable<E>> : Queue<E> {
     override var size = 0
         private set
     private var capacity = DEFAULT_CAPACITY
-    private var elements = Array<Any?>(capacity) { null }
+    private var elements = arrayOfNulls<Any>(capacity)
     override fun add(e: E) {
         if (size == capacity) {
             capacity = capacity shl 1

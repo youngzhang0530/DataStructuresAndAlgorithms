@@ -6,7 +6,7 @@ package sort
 
 fun <E : Comparable<E>> Array<E>.mergeSort() {
 
-    val aux = Array<Any?>(this.size) { null }
+    val aux = arrayOfNulls<Any>(this.size)
 
     @Suppress("UNCHECKED_CAST")
     fun merge(low: Int, mid: Int, high: Int) {

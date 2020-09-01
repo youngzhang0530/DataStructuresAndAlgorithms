@@ -5,9 +5,10 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 internal class TernarySearchTreeMapTest {
-    lateinit var map: TernarySearchTreeMap<Int>
+    private lateinit var map: TernarySearchTreeMap<Int>
 
     @BeforeEach
     fun setUp() {
@@ -65,10 +66,58 @@ internal class TernarySearchTreeMapTest {
     }
 
     @Test
+    fun remove() {
+        map["a"] = 5
+        map["ab"] = 6
+        map["abc"] = 7
+        map["akd"] = 7
+        assertNull(map.remove("abcd"))
+        assertEquals(4, map.size)
+        assertEquals(7, map.remove("akd"))
+        assertEquals(3, map.size)
+        assertEquals(3, map.keys.count())
+        assertEquals(7, map.remove("abc"))
+        assertEquals(2, map.size)
+        assertEquals(2, map.keys.count())
+    }
+
+
+    @Test
     fun keys() {
         map["a"] = 5
         map["abc"] = 6
         map["abcd"] = 6
         assertEquals(3, map.keys.count())
+    }
+
+    @Test
+    fun keysWithPrefix() {
+        map["a"] = 5
+        map["ab"] = 6
+        map.put("  ", 7)
+        map["abc"] = 7
+        map["abk"] = 8
+        assertEquals(4, map.keysWithPrefix("a").count())
+        assertEquals(1, map.keysWithPrefix(" ").count())
+    }
+
+    @Test
+    fun keysThatMatch() {
+        map["a"] = 5
+        map["abd"] = 6
+        map["abc"] = 7
+        assertEquals(1, map.keysThatMatch("..d").count())
+        assertEquals(2, map.keysThatMatch("...").count())
+        assertEquals(1, map.keysThatMatch(".").count())
+        assertEquals(1, map.keysThatMatch("..c").count())
+        assertEquals(2, map.keysThatMatch("ab.").count())
+    }
+
+    @Test
+    fun longestPrefixOf() {
+        map["a"] = 5
+        map["ab"] = 6
+        map["abc"] = 7
+        assertEquals("ab", map.longestPrefixOf("abd"))
     }
 }

@@ -51,7 +51,7 @@ class LinearProbingHashMap<K, V> : Map<K, V> {
             valueArray[index] = null
             size--
         }
-        if (size == capacity / 8 && (capacity shr 1) >= DEFAULT_CAPACITY) resize(capacity shr 1)
+        if (size == capacity / 8 && capacity shr 1 >= DEFAULT_CAPACITY) resize(capacity shr 1)
         return result as V
     }
 

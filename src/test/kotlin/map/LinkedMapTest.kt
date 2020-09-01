@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class LinkedMapTest {
-    lateinit var map: LinkedMap<String, Int>
+    private lateinit var map: LinkedMap<String, Int>
 
     @BeforeEach
     fun setUp() {

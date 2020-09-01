@@ -17,7 +17,7 @@ class ArrayList<E> : List<E> {
 
     private var capacity = DEFAULT_CAPACITY
 
-    private var elements = Array<Any?>(capacity) { null }
+    private var elements = arrayOfNulls<Any>(capacity)
 
     /**
      * 判断列表是否为空
@@ -95,7 +95,7 @@ class ArrayList<E> : List<E> {
         }
         elements[size - 1] = null
         size--
-        if (size == capacity shr 2 && capacity shr 2 > DEFAULT_CAPACITY) resize(capacity shr 1)
+        if (size == capacity shr 2 && capacity shr 2 >= DEFAULT_CAPACITY) resize(capacity shr 1)
         return result as E
     }
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 internal class ArrayListTest {
-    lateinit var list: ArrayList<Int>
+    private lateinit var list: ArrayList<Int>
 
     @BeforeEach
     fun setUp() {

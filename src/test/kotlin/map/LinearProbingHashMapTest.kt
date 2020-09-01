@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class LinearProbingHashMapTest {
-    lateinit var map: LinearProbingHashMap<String, Int>
+    private lateinit var map: LinearProbingHashMap<String, Int>
 
     @BeforeEach
     fun setUp() {

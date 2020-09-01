@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class BinarySearchTreeSetTest {
-    lateinit var set: BinarySearchTreeSet<Int>
+    private lateinit var set: BinarySearchTreeSet<Int>
 
     @BeforeEach
     fun setUp() {

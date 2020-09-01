@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class HashSetTest {
-    lateinit var set: HashSet<Int>
+    private lateinit var set: HashSet<Int>
 
     @BeforeEach
     fun setUp() {

@@ -1,14 +1,12 @@
 package map
 
-import java.util.*
-
 /**
- * 使用Trie实现的Map
+ * 单词搜索树
  * 此实现只能使用字符串作为键值
  */
 
 /**
- * 创建一个字典树
+ * 创建一个单词搜索树
  */
 class TrieMap<V> : Map<String, V> {
 
@@ -28,7 +26,7 @@ class TrieMap<V> : Map<String, V> {
     }
 
     /**
-     * 向字典树中插入键值对，键为[key]，值为[value]
+     * 向树中插入键值对，键为[key]，值为[value]
      */
     override fun put(key: String, value: V): V? {
         if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
@@ -56,6 +54,7 @@ class TrieMap<V> : Map<String, V> {
      * 运算符重载，允许使用下标访问字典
      */
     override operator fun get(key: String): V? {
+        if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         return get(root, key, 0)?.value
     }
 
@@ -88,10 +87,10 @@ class TrieMap<V> : Map<String, V> {
      * 查找前缀为[s]的键
      */
     fun keysWithPrefix(s: String): Iterable<String> {
-        val queue = ArrayDeque<String>()
+        val list = mutableListOf<String>()
 
         fun collect(x: Node<V>, pre: String) {
-            x.value?.let { queue.addLast(pre) }
+            x.value?.let { list.add(pre) }
             for (c in 0 until R) {
                 x.next[c]?.let { collect(it, pre + c.toChar()) }
             }
@@ -99,18 +98,19 @@ class TrieMap<V> : Map<String, V> {
         get(root, s, 0)?.let {
             collect(it, s)
         }
-        return queue
+        return list
     }
 
     /**
      * 查找与[pat]匹配的键
      */
     fun keysThatMatch(pat: String): Iterable<String> {
-        val queue = ArrayDeque<String>()
+        if (pat.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
+        val list = mutableListOf<String>()
 
         fun collect(x: Node<V>, pre: String) {
             if (pre.length == pat.length) {
-                x.value?.let { queue.addLast(pre) }
+                x.value?.let { list.add(pre) }
             } else {
                 val d = pat[pre.length]
                 for (c in 0 until R) {
@@ -122,7 +122,7 @@ class TrieMap<V> : Map<String, V> {
         }
 
         collect(root, "")
-        return queue
+        return list
     }
 
     /**
@@ -146,6 +146,7 @@ class TrieMap<V> : Map<String, V> {
      * 删除键[key]和[key]对应的值
      */
     override fun remove(key: String): V? {
+        if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         var result: V? = null
         fun remove(x: Node<V>, d: Int): Node<V>? {
             if (d == key.length) {
@@ -169,7 +170,7 @@ class TrieMap<V> : Map<String, V> {
     }
 
     /**
-     * 获取字典中所有的键
+     * 获取树中所有的键
      */
     override val keys: Iterable<String>
         get() = keysWithPrefix("")
