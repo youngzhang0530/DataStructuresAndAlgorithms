@@ -2,13 +2,15 @@ package list
 
 /**
  * 链表
+ *
+ * @constructor 创建一个链表
  */
 class LinkedList<E> : List<E> {
 
     private val dummyHead = Node<E>()
 
     /**
-     * 返回列表中元素的数量
+     * 列表中元素的数量
      */
     override var size = 0
 

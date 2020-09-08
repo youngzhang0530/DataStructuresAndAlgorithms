@@ -1,18 +1,18 @@
 package map
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
-internal class TernarySearchTreeMapTest {
-    private lateinit var map: TernarySearchTreeMap<Int>
+internal class TSTMapTest {
+    private lateinit var map: TSTMap<Int>
+
 
     @BeforeEach
     fun setUp() {
-        map = TernarySearchTreeMap()
+        map = TSTMap()
     }
 
     @Test
@@ -72,13 +72,13 @@ internal class TernarySearchTreeMapTest {
         map["abc"] = 7
         map["akd"] = 7
         assertNull(map.remove("abcd"))
-        assertEquals(4, map.size)
+        println(map.keysWithPrefix(""))
+        assertIterableEquals(arrayListOf("a", "ab", "abc", "akd"), map.keys)
         assertEquals(7, map.remove("akd"))
-        assertEquals(3, map.size)
-        assertEquals(3, map.keys.count())
+        assertIterableEquals(arrayListOf("a", "ab", "abc"), map.keys)
         assertEquals(7, map.remove("abc"))
         assertEquals(2, map.size)
-        assertEquals(2, map.keys.count())
+        assertIterableEquals(arrayListOf("a", "ab"), map.keys)
     }
 
 
@@ -97,8 +97,9 @@ internal class TernarySearchTreeMapTest {
         map.put("  ", 7)
         map["abc"] = 7
         map["abk"] = 8
-        assertEquals(4, map.keysWithPrefix("a").count())
-        assertEquals(1, map.keysWithPrefix(" ").count())
+        assertIterableEquals(arrayListOf("a", "ab", "abc", "abk"), map.keysWithPrefix("a"))
+        println(map.keysWithPrefix(" "))
+        assertIterableEquals(arrayListOf("  "), map.keysWithPrefix(" "))
     }
 
     @Test

@@ -2,6 +2,8 @@ package queue
 
 /**
  * 基于数组的循环队列
+ *
+ * @constructor 创建一个队列
  */
 @Suppress("UNCHECKED_CAST")
 class ArrayQueue<E> : Queue<E> {
@@ -16,7 +18,7 @@ class ArrayQueue<E> : Queue<E> {
     private var elements = arrayOfNulls<Any>(capacity)
 
     /**
-     * 返回队列中元素的数量
+     * 队列中元素的数量
      */
     override val size: Int
         get() = when {

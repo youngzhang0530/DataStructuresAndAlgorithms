@@ -2,6 +2,8 @@ package map
 
 /**
  * 基于拉链法的哈希表
+ *
+ * @constructor 创建一个Map
  */
 class SeparateChainingHashMap<K : Comparable<K>, V> : Map<K, V> {
     private companion object {
@@ -10,6 +12,9 @@ class SeparateChainingHashMap<K : Comparable<K>, V> : Map<K, V> {
 
     private var capacity = DEFAULT_CAPACITY
 
+    /**
+     * Map中元素的数量
+     */
     override var size = 0
         private set
     private var table = Array(capacity) { LinkedMap<K, V>() }

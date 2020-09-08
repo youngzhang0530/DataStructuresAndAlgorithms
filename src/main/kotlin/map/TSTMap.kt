@@ -4,13 +4,14 @@ package map
  * 使用三向单词搜索树实现的Map
  * 此实现只能使用字符串作为键值。
  * 三向单词搜索树可以避免Trie对空间的过度消耗
+ *
+ * @constructor 创建一个三向单词搜索树
  */
+class TSTMap<V> : Map<String, V> {
 
-/**
- * 创建一个三向单词搜索树
- */
-class TernarySearchTreeMap<V> : Map<String, V> {
-
+    /**
+     * Map中元素的数量
+     */
     override var size = 0
         private set
     private var root: Node<V>? = null
@@ -20,12 +21,13 @@ class TernarySearchTreeMap<V> : Map<String, V> {
      * 运算符重载，允许使用下标访问字典
      */
     override operator fun get(key: String): V? {
+        if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         return get(root, key, 0)?.value
     }
 
     private fun get(x: Node<V>?, key: String, d: Int): Node<V>? {
-        if (key.isEmpty()) throw IllegalArgumentException("The empty key isn't be supported")
         if (x == null) return null
+        if (key.isEmpty()) return x
         val c = key[d]
         return when {
             c < x.c -> get(x.left, key, d)
@@ -130,36 +132,27 @@ class TernarySearchTreeMap<V> : Map<String, V> {
      * 获取字典中所有的键
      */
     override val keys: Iterable<String>
-        get() {
-            val list = mutableListOf<String>()
-            fun collect(x: Node<V>?, pre: String) {
-                if (x == null) return
-                x.value?.let { list.add(pre) }
-                if (x.left != null) collect(x.left!!, pre + x.c)
-                if (x.mid != null) collect(x.mid!!, pre + x.c)
-                if (x.right != null) collect(x.right!!, pre + x.c)
-            }
-            collect(root, "")
-            return list
-        }
+        get() = keysWithPrefix("")
 
     /**
-     * 查找前缀为[s]的键
+     * 中序遍历查找前缀为[s]的键
      */
     fun keysWithPrefix(s: String): Iterable<String> {
         val list = mutableListOf<String>()
 
         fun collect(x: Node<V>, pre: String) {
-            x.value?.let { list.add(pre) }
+            x.value?.let { list.add(pre + x.c) }
             if (x.left != null) collect(x.left!!, pre)
-            if (x.mid != null) collect(x.mid!!, pre + x.mid!!.c)
+            if (x.mid != null) collect(x.mid!!, pre + x.c)
             if (x.right != null) collect(x.right!!, pre)
         }
 
         val node = get(root, s, 0)
         if (node != null) {
-            if (node.value != null) list.add(s)
-            if (node.mid != null) collect(node.mid!!, s)
+            if (s.isNotEmpty()) {
+                if (node.value != null) list.add(s)
+                if (node.mid != null) collect(node.mid!!, s)
+            } else collect(node, s)
         }
         return list
     }

@@ -2,6 +2,8 @@ package map
 
 /**
  * 基于线性探测法的哈希表
+ *
+ * @constructor 创建一个Map
  */
 @Suppress("UNCHECKED_CAST")
 class LinearProbingHashMap<K, V> : Map<K, V> {
@@ -11,6 +13,9 @@ class LinearProbingHashMap<K, V> : Map<K, V> {
 
     private var capacity = DEFAULT_CAPACITY
 
+    /**
+     * Map中元素的数量
+     */
     override var size = 0
         private set
     private var keyArray = arrayOfNulls<Any>(capacity)

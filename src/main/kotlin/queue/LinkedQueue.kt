@@ -2,6 +2,8 @@ package queue
 
 /**
  * 基于双链表的队列
+ *
+ * @constructor 创建一个队列
  */
 class LinkedQueue<E> : Queue<E> {
     private var dummyHead = Node<E>()
@@ -13,7 +15,7 @@ class LinkedQueue<E> : Queue<E> {
     }
 
     /**
-     * 返回队列中元素的数量
+     * 队列中元素的数量
      */
     override var size = 0
 

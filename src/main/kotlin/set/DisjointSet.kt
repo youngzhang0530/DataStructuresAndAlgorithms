@@ -3,10 +3,8 @@ package set
 /**
  * 采用数组实现的并查集
  * 并查集是一种树型的数据结构,用于处理一些不相交集合（Disjoint Sets）的合并及查询问题
- */
-
-/**
- * 创建一个初始集合数为[n]的并查集
+ *
+ * @constructor 创建一个初始集合数为[n]的并查集
  */
 class DisjointSet(private val n: Int) {
 

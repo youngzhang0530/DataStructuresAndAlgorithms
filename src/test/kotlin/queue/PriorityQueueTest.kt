@@ -6,12 +6,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
-internal class MinHeapPriorityQueueTest {
-    private lateinit var queue: MinHeapPriorityQueue<Int>
+internal class PriorityQueueTest {
+    private lateinit var queue: PriorityQueue<Int>
 
     @BeforeEach
     fun setUp() {
-        queue = MinHeapPriorityQueue()
+        queue = PriorityQueue()
     }
 
     @Test

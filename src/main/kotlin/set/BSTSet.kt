@@ -1,19 +1,21 @@
 package set
 
-import map.BinarySearchTreeMap
+import map.BSTMap
 
 /**
  * 基于二分搜索树的集合
+ *
+ * @constructor 创建一个集合
  */
-class BinarySearchTreeSet<E : Comparable<E>> : Set<E> {
+class BSTSet<E : Comparable<E>> : Set<E> {
     private companion object {
         val PRESENT = Any()
     }
 
-    private val map = BinarySearchTreeMap<E, Any>()
+    private val map = BSTMap<E, Any>()
 
     /**
-     * 返回集合中元素的数量
+     * 集合中元素的数量
      */
     override val size: Int
         get() = map.size

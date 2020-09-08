@@ -2,15 +2,16 @@ package map
 
 /**
  * 使用链表实现的Map
- */
-
-/**
- * 创建一个链表
+ *
+ * @constructor 创建一个Map
  */
 class LinkedMap<K : Comparable<K>, V> : Map<K, V>, Iterable<Pair<K, V>> {
 
     private val dummyHead = Node<K, V>()
 
+    /**
+     * Map中元素的数量
+     */
     override var size = 0
         private set
 

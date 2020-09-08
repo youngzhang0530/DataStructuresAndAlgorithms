@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class BinarySearchTreeMapTest {
+internal class BSTMapTest {
 
-    private lateinit var map: BinarySearchTreeMap<String, Int>
+    private lateinit var map: BSTMap<String, Int>
 
     @BeforeEach
     fun setUp() {
-        map = BinarySearchTreeMap()
+        map = BSTMap()
     }
 
     @Test

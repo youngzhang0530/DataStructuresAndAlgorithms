@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class BinarySearchTreeSetTest {
-    private lateinit var set: BinarySearchTreeSet<Int>
+internal class BSTSetTest {
+    private lateinit var set: BSTSet<Int>
 
     @BeforeEach
     fun setUp() {
-        set = BinarySearchTreeSet()
+        set = BSTSet()
     }
 
     @Test

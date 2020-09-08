@@ -2,13 +2,14 @@ package map
 
 /**
  * 使用二分搜索树实现的Map
+ *
+ * @constructor 创建一个二分搜索树
  */
+class BSTMap<K : Comparable<K>, V> : Map<K, V> {
 
-/**
- * 创建一个二分搜索树
- */
-class BinarySearchTreeMap<K : Comparable<K>, V> : Map<K, V> {
-
+    /**
+     * Map中元素的数量
+     */
     override val size
         get() = sizeOf(root)
 

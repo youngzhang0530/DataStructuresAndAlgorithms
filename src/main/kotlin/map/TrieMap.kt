@@ -3,10 +3,8 @@ package map
 /**
  * 单词搜索树
  * 此实现只能使用字符串作为键值
- */
-
-/**
- * 创建一个单词搜索树
+ *
+ * @constructor 创建一个单词搜索树
  */
 class TrieMap<V> : Map<String, V> {
 
@@ -15,6 +13,10 @@ class TrieMap<V> : Map<String, V> {
     }
 
     private var root = Node<V>()
+
+    /**
+     * Map中元素的数量
+     */
     override var size = 0
         private set
 

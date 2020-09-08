@@ -4,6 +4,8 @@ import map.LinearProbingHashMap
 
 /**
  * 基于哈希表的集合
+ *
+ * @constructor 创建一个集合
  */
 class HashSet<E> : Set<E> {
     private companion object {
@@ -13,7 +15,7 @@ class HashSet<E> : Set<E> {
     private val map = LinearProbingHashMap<E, Any>()
 
     /**
-     * 返回集合中元素的数量
+     * 集合中元素的数量
      */
     override val size: Int
         get() = map.size

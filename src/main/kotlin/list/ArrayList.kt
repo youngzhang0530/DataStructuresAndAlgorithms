@@ -2,6 +2,8 @@ package list
 
 /**
  * 动态数组
+ *
+ * @constructor 创建一个动态数组
  */
 @Suppress("UNCHECKED_CAST")
 class ArrayList<E> : List<E> {
@@ -10,7 +12,7 @@ class ArrayList<E> : List<E> {
     }
 
     /**
-     * 返回列表中元素的数量
+     * 列表中元素的数量
      */
     override var size = 0
         private set
