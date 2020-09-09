@@ -44,7 +44,7 @@ class ArrayQueue<E> : Queue<E> {
         val result = elements[head]
         elements[head] = null
         head = (head + 1 + capacity) % capacity
-        if (size == capacity shr 2 && capacity shr 2 >= DEFAULT_CAPACITY) resize(capacity shr 1)
+        if (size == capacity shr 1 && capacity shr 1 >= DEFAULT_CAPACITY) resize(capacity shr 1)
         return result as E
     }
 

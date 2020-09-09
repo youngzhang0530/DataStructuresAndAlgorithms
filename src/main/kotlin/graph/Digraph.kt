@@ -7,20 +7,28 @@ import java.util.*
  * 基于邻接表的有向无权图
  * 此实现不支持自环和平行边
  */
-open class Digraph protected constructor() : Graph() {
+open class Digraph protected constructor() : Cloneable {
 
-    protected lateinit var inDegrees: IntArray
-    protected lateinit var outDegrees: IntArray
+    /**
+     * 顶点数
+     */
+    val vertexCount
+        get() = g.vertexCount
+
+    /**
+     * 边数
+     */
+    val edgeCount
+        get() = g.edgeCount
+
+    private lateinit var g: WeightedDigraph
 
     /**
      * @param vertexCount 顶点数
      * @constructor 创建一个有向无权图
      */
     constructor(vertexCount: Int) : this() {
-        this.vertexCount = vertexCount
-        adjMap = Array(vertexCount) { sortedMapOf() }
-        inDegrees = IntArray(vertexCount)
-        outDegrees = IntArray(vertexCount)
+        g = WeightedDigraph(vertexCount)
     }
 
     /**
@@ -30,10 +38,8 @@ open class Digraph protected constructor() : Graph() {
     constructor(file: File) : this() {
         Scanner(file).use {
             if (!it.hasNextInt()) throw IllegalArgumentException("The file is empty.")
-            vertexCount = it.nextInt()
-            adjMap = Array(vertexCount) { sortedMapOf() }
-            inDegrees = IntArray(vertexCount)
-            outDegrees = IntArray(vertexCount)
+            val vertexCount = it.nextInt()
+            g = WeightedDigraph(vertexCount)
             while (it.hasNextInt()) {
                 val a = it.nextInt()
                 if (!it.hasNextInt()) throw IllegalArgumentException("The vertex can't be paired.")
@@ -44,45 +50,59 @@ open class Digraph protected constructor() : Graph() {
     }
 
     /**
+     * 返回与顶点[v]相邻的顶点
+     */
+    fun adjOf(v: Int): Iterable<Int> {
+        return g.adjOf(v)
+    }
+
+    /**
      * 连接顶点[v]和[w]
      */
-    final override fun connect(v: Int, w: Int) {
-        validate(v)
-        validate(w)
-        if (v == w) throw IllegalArgumentException("The kotlin.graph doesn't support self loop.")
-        adjMap[v][w] = 0.0
-        outDegrees[v] += 1
-        inDegrees[w] += 1
-        edgeCount++
+    fun connect(v: Int, w: Int) {
+        g.connect(v, w, 1.0)
     }
 
     /**
      * 返回顶点[v]的出度
      */
     fun outDegreeOf(v: Int): Int {
-        validate(v)
-        return outDegrees[v]
+        return g.outDegreeOf(v)
     }
 
     /**
      * 返回顶点[v]的入度
      */
     fun inDegreeOf(v: Int): Int {
-        validate(v)
-        return inDegrees[v]
+        return g.inDegreeOf(v)
     }
 
     /**
      * 将顶点[v]和[w]的连接断开
      */
-    override fun disconnect(v: Int, w: Int) {
-        validate(v)
-        validate(w)
-        if (v == w) throw IllegalArgumentException("The kotlin.graph doesn't support self loop.")
-        if (adjMap[v].remove(w) != null) {
-            edgeCount--
-            outDegrees[v]--
-            inDegrees[w]--
-        }
+    fun disconnect(v: Int, w: Int) {
+        g.disconnect(v, w)
+    }
+
+    /**
+     * 返回图的反向图
+     */
+    fun reverse(): Digraph {
+        return g.reverse()
+    }
+
+    /**
+     * 验证顶点[v]的合法性
+     */
+    fun validate(v: Int) {
+        g.validate(v)
+    }
+
+    override fun toString(): String {
+        return g.toString()
+    }
+
+    public override fun clone(): Digraph {
+        return (super.clone() as Digraph).apply { g = g.clone() }
     }
 }

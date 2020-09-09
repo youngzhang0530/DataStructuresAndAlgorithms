@@ -12,24 +12,23 @@ open class Graph protected constructor() : Cloneable {
     /**
      * 顶点数
      */
-    var vertexCount: Int = 0
-        protected set
+    val vertexCount
+        get() = g.vertexCount
 
     /**
      * 边数
      */
-    var edgeCount = 0
-        protected set
+    val edgeCount
+        get() = g.edgeCount
 
-    protected lateinit var adjMap: Array<SortedMap<Int, Double>>
+    private lateinit var g: WeightedGraph
 
     /**
      * @param vertexCount 顶点数
      * @constructor 创建一个无向无权图
      */
     constructor(vertexCount: Int) : this() {
-        this.vertexCount = vertexCount
-        adjMap = Array(vertexCount) { sortedMapOf() }
+        g = WeightedGraph(vertexCount)
     }
 
     /**
@@ -39,8 +38,8 @@ open class Graph protected constructor() : Cloneable {
     constructor(file: File) : this() {
         Scanner(file).use {
             if (it.hasNextInt()) throw IllegalArgumentException("Please specify the number of vertices.")
-            vertexCount = it.nextInt()
-            adjMap = Array(vertexCount) { sortedMapOf() }
+            val vertexCount = it.nextInt()
+            g = WeightedGraph(vertexCount)
             while (it.hasNextInt()) {
                 val v = it.nextInt()
                 if (!it.hasNextInt()) throw IllegalArgumentException("The vertex can't be paired.")
@@ -50,75 +49,48 @@ open class Graph protected constructor() : Cloneable {
         }
     }
 
+    /**
+     * 返回与顶点[v]相邻的顶点
+     */
+    fun adjOf(v: Int): Iterable<Int> {
+        return g.adjOf(v)
+    }
 
     /**
      * 将顶点[v]和[w]相连接
      */
-    open fun connect(v: Int, w: Int) {
-        validate(v)
-        validate(w)
-        if (v == w) throw IllegalArgumentException("The graph doesn't support self loop.")
-        adjMap[v][w] = 0.0
-        adjMap[w][v] = 0.0
-        edgeCount++
+    fun connect(v: Int, w: Int) {
+        g.connect(v, w, 1.0)
     }
 
     /**
      * 将顶点[v]和[w]的连接断开
      */
-    open fun disconnect(v: Int, w: Int) {
-        validate(v)
-        validate(w)
-        if (v == w) throw IllegalArgumentException("The graph doesn't support self loop.")
-        adjMap[v].remove(w)
-        adjMap[w].remove(v)
-        edgeCount--
+    fun disconnect(v: Int, w: Int) {
+        g.disconnect(v, w)
+    }
+
+
+    /**
+     * 返回顶点[v]的度数
+     */
+    fun degreeOf(v: Int): Int {
+        return g.degreeOf(v)
     }
 
     /**
      * 验证顶点[v]的合法性
      */
     fun validate(v: Int) {
-        if (v < 0 || v >= vertexCount) throw IllegalArgumentException("The vertex isn't present in the graph.")
-    }
-
-    /**
-     * 返回与顶点[v]相邻的顶点
-     */
-    fun adjOf(v: Int): Iterable<Int> {
-        validate(v)
-        return adjMap[v].keys
-    }
-
-    /**
-     * 返回顶点[v]的度数
-     */
-    fun degreeOf(v: Int): Int {
-        validate(v)
-        return adjMap[v].size
+        g.validate(v)
     }
 
     override fun toString(): String {
-        val sb = StringBuilder("$vertexCount vertices, $edgeCount edges\n")
-        for (v in 0 until vertexCount) {
-            sb.append("${v}:")
-            for ((w, _) in adjMap[v]) {
-                sb.append(" $w")
-            }
-            sb.append("\n")
-        }
-        return sb.toString()
+        return g.toString()
     }
 
     public override fun clone(): Graph {
-        val g = super.clone() as Graph
-        g.adjMap = Array(vertexCount) { sortedMapOf() }
-        for (v in 0 until this.vertexCount) {
-            for ((w, weight) in this.adjMap[v]) {
-                g.adjMap[v][w] = weight
-            }
-        }
-        return g
+        return (super.clone() as Graph).apply { g = g.clone() }
     }
 }
 

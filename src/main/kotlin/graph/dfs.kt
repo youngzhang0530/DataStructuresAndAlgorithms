@@ -1,16 +1,15 @@
 package graph
 
 /**
- * dfs(Depth First Search)
- * 深度优先搜索
+ * 前序深度优先搜索无向无权图
  */
-fun Graph.dfs(): Iterable<Int> {
-    val list = mutableListOf<Int>()
+fun Graph.preOrder(): Iterable<Int> {
+    val order = ArrayDeque<Int>()
     val visited = BooleanArray(this.vertexCount)
 
     fun dfs(v: Int) {
         visited[v] = true
-        list.add(v)
+        order.addLast(v)
         for (w in adjOf(v)) {
             if (!visited[w]) dfs(w)
         }
@@ -19,5 +18,48 @@ fun Graph.dfs(): Iterable<Int> {
     for (v in 0 until this.vertexCount) {
         if (!visited[v]) dfs(v)
     }
-    return list
+    return order
+}
+
+/**
+ * 后序深度优先搜索无向无权图
+ */
+fun Graph.postOrder(): Iterable<Int> {
+    val order = ArrayDeque<Int>()
+    val visited = BooleanArray(this.vertexCount)
+
+    fun dfs(v: Int) {
+        visited[v] = true
+        for (w in adjOf(v)) {
+            if (!visited[w]) dfs(w)
+        }
+        order.addLast(v)
+    }
+
+    for (v in 0 until this.vertexCount) {
+        if (!visited[v]) dfs(v)
+    }
+    return order
+}
+
+/**
+ * 逆后序深度优先搜索有向无权图
+ */
+fun Digraph.reversePostOrder(): Iterable<Int> {
+    val order = ArrayDeque<Int>()
+    val visited = BooleanArray(this.vertexCount)
+
+    fun dfs(v: Int) {
+        visited[v] = true
+        for (w in adjOf(v)) {
+            if (!visited[w]) dfs(w)
+        }
+        order.addFirst(v)
+    }
+
+    for (v in 0 until this.vertexCount) {
+        if (!visited[v]) dfs(v)
+    }
+
+    return order
 }

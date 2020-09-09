@@ -37,7 +37,7 @@ class ArrayStack<E> : Stack<E> {
         val result = elements[size - 1]
         elements[size - 1] = null
         size--
-        if (size == capacity shr 2 && capacity shr 2 >= DEFAULT_CAPACITY) resize(capacity shr 1)
+        if (size == capacity shr 1 && capacity shr 1 >= DEFAULT_CAPACITY) resize(capacity shr 1)
         return result as E
     }
 

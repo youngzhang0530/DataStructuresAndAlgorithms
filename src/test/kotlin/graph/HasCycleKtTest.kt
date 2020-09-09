@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 internal class HasCycleKtTest {
 
     @Test
-    fun hasCycle() {
+    fun graphHasCycle() {
         val g = Graph(8).apply {
             connect(0, 1)
             connect(0, 2)
@@ -22,6 +22,21 @@ internal class HasCycleKtTest {
         g.run {
             disconnect(0, 1)
             disconnect(3, 4)
+            disconnect(3, 5)
+        }
+        assertFalse(g.hasCycle())
+    }
+
+    @Test
+    fun digraphHasCycle() {
+        val g = Graph(8).apply {
+            connect(0, 5)
+            connect(3, 5)
+            connect(5, 4)
+            connect(4, 3)
+        }
+        assertTrue(g.hasCycle())
+        g.run {
             disconnect(3, 5)
         }
         assertFalse(g.hasCycle())
