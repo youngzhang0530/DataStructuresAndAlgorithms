@@ -40,4 +40,9 @@
     + [cc(连通分量)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/cc.kt)
     + [hasCycle(环检测)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/hasCycle.kt)
     + [isBipartite(二分图检测)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/isBipartite.kt)
+    + [hamiltonianCycle(哈密顿回路)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/hamiltonianCycle.kt)
+    + [eulerianCycle(欧拉回路)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/eulerianCycle.kt)
+    + [tsp(旅行商问题)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/tsp.kt)
+    + [topologicalSort(拓扑排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/topologicalSort.kt)
+    + [scc(强连通分量,Kosaraju算法)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/scc.kt)
     
