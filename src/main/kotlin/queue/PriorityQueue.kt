@@ -35,7 +35,7 @@ class PriorityQueue<E : Comparable<E>> : Queue<E> {
 
     /**
      * 删除队列中最小的元素，并返回
-     * 如果栈为空，则抛出[NoSuchElementException]异常
+     * 如果队列为空，则抛出[NoSuchElementException]异常
      */
     override fun remove(): E {
         val result = elements[0] ?: throw NoSuchElementException()
@@ -71,9 +71,10 @@ class PriorityQueue<E : Comparable<E>> : Queue<E> {
 
     private fun swim(k: Int) {
         val parent = (k - 1) / 2
+        if (parent == k) return
         if ((elements[k] as E) < (elements[parent] as E)) {
             exchange(parent, k)
-            if (parent > 0) swim(parent)
+            swim(parent)
         }
     }
 

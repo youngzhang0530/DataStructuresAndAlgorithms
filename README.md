@@ -9,15 +9,16 @@
 + queue
     + [ArrayQueue(基于数组的循环队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/ArrayQueue.kt)
     + [LinkedQueue(基于双向链表的队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/LinkedQueue.kt)
-    + [PriorityQueue(基于最小堆的优先队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/MinHeapPriorityQueue.kt)
+    + [PriorityQueue(基于最小堆的优先队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/PriorityQueue.kt)
+    + [IndexPriorityQueue(基于最小堆的索引优先队列)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/queue/IndexPriorityQueue.kt)
 + set
     + [HashSet(基于哈希表的集合)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/HashSet.kt)
-    + [BSTSet(基于二分搜索树的集合)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/BinarySearchTreeSet.kt)
+    + [BSTSet(基于二分搜索树的集合)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/BSTSet.kt)
     + [DisjointSet(并查集)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/DisjointSet.kt)
 + map
-    + [BSTMap(二分搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/BinarySearchTreeMap.kt)
+    + [BSTMap(二分搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/BSTMap.kt)
     + [TrieMap(单词搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TrieMap.kt)
-    + [TSTMap(三向单词搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TernarySearchTreeMap.kt)
+    + [TSTMap(三向单词搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TSTMap.kt)
     + [LinkedMap(基于无序链表的映射)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinkedMap.kt)
     + [SeparateChainingHashMap(基于拉链法的哈希表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/SeparateChainingHashMap.kt)
     + [LinearProbingHashMap(基于线性探测法的哈希表)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinearProbingHashMap.kt)
@@ -44,5 +45,8 @@
     + [eulerianCycle(欧拉回路)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/eulerianCycle.kt)
     + [tsp(旅行商问题)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/tsp.kt)
     + [topologicalSort(拓扑排序)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/topologicalSort.kt)
-    + [scc(强连通分量,Kosaraju算法)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/scc.kt)
+    + [scc(Kosaraju强连通分量算法)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/scc.kt)
+    + [primMst(Prim最小生成树算法)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/primMst.kt)
+    + [kruskalMst(Kruskal最小生成树算法)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/kruskalMst.kt)
+    + [dijkstraSP(Dijkstra最短路径算法)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/graph/dijkstraSP.kt)
     
