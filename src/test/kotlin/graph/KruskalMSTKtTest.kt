@@ -3,10 +3,10 @@ package graph
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class PrimMstKtTest {
+internal class KruskalMSTKtTest {
 
     @Test
-    fun primMst() {
+    fun kruskalMst() {
         val g = WeightedGraph(8).apply {
             connect(4, 5, 0.35)
             connect(4, 7, 0.37)
@@ -26,7 +26,7 @@ internal class PrimMstKtTest {
             connect(6, 4, 0.93)
         }
         var weight = 0.0
-        g.primMst().forEach { weight += it.third }
+        g.kruskalMST().forEach { weight += it.third }
         assertEquals(1.81, weight)
     }
 }

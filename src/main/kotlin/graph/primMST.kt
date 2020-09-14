@@ -5,7 +5,7 @@ import queue.IndexPriorityQueue
 /**
  * Prim最小生成树算法
  */
-fun WeightedGraph.primMst(): Iterable<Triple<Int, Int, Double>> {
+fun WeightedGraph.primMST(): Iterable<Triple<Int, Int, Double>> {
 
     val mst = mutableListOf<Triple<Int, Int, Double>>()
     if (this.cc() > 1) return mst

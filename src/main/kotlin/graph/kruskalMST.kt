@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Kruskal最小生成树算法
  */
-fun WeightedGraph.kruskalMst(): MutableList<Triple<Int, Int, Double>> {
+fun WeightedGraph.kruskalMST(): MutableList<Triple<Int, Int, Double>> {
 
     val mst = mutableListOf<Triple<Int, Int, Double>>()
     if (this.cc() > 1)

@@ -24,6 +24,6 @@ internal class TopologicalSortKtTest {
             connect(9, 12)
             connect(11, 12)
         }
-        assertIterableEquals(listOf(8, 7, 2, 3, 0, 6, 9, 11, 12, 10, 5, 4, 1), g.topologicalSort())
+        assertIterableEquals(listOf(8, 7, 2, 3, 0, 6, 9, 11, 12, 10, 5, 4, 1), g.topologicalOrder())
     }
 }

@@ -3,13 +3,13 @@ package graph
 import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.Test
 
-internal class DijkstraSPKtTest {
+internal class BellmanFordSPKtTest {
 
     @Test
-    fun dijkstraSP() {
+    fun bellmanFordSP() {
         val g = WeightedDigraph(8).apply {
             connect(4, 5, 0.35)
-            connect(5, 4, 0.35)
+            connect(5, 4, -0.66)
             connect(4, 7, 0.37)
             connect(5, 7, 0.28)
             connect(7, 5, 0.28)
@@ -24,7 +24,11 @@ internal class DijkstraSPKtTest {
             connect(6, 0, 0.58)
             connect(6, 4, 0.93)
         }
-        assertIterableEquals(listOf(0, 2, 7), g.dijkstraSP(0, 7))
-        assertIterableEquals(listOf(2, 7, 3), g.dijkstraSP(2, 3))
+        println(g.bellmanFordSP(0, 7))
+        assertIterableEquals(listOf<Int>(), g.bellmanFordSP(0, 7))
+        assertIterableEquals(listOf<Int>(), g.bellmanFordSP(2, 3))
+        g.connect(5, 4, 0.35)
+        assertIterableEquals(listOf(0, 2, 7), g.bellmanFordSP(0, 7))
+        assertIterableEquals(listOf(2, 7, 3), g.bellmanFordSP(2, 3))
     }
 }
