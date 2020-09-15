@@ -14,9 +14,11 @@
 + set
     + [HashSet(基于哈希表的集合)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/HashSet.kt)
     + [BSTSet(基于二分搜索树的集合)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/BSTSet.kt)
+    + [AVLSet(基于AVL树的集合)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/AVLSet.kt)
     + [DisjointSet(并查集)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/set/DisjointSet.kt)
 + map
     + [BSTMap(二分搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/BSTMap.kt)
+    + [AVLMap(AVL树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/AVLMap.kt)
     + [TrieMap(单词搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TrieMap.kt)
     + [TSTMap(三向单词搜索树)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/TSTMap.kt)
     + [LinkedMap(基于无序链表的映射)](https://gitee.com/youngzhang0530/DataStructuresAndAlgorithms/blob/master/src/main/kotlin/map/LinkedMap.kt)
