@@ -1,11 +1,18 @@
 package map
 
 /**
- * 使用二分搜索树实现的Map
+ * 使用红黑树实现的Map
+ * 相对于AVL树，红黑树牺牲了部分平衡性，减少了增删数据时旋转操作的次数。
+ * 在查询较多、增删较少时，AVL是更好的选择。
  *
- * @constructor 创建一个二分搜索树
+ * @constructor 创建一个红黑树
  */
-class BSTMap<K : Comparable<K>, V> : Map<K, V> {
+class RBTMap<K : Comparable<K>, V> : Map<K, V> {
+
+    private companion object {
+        const val RED = true
+        const val BLACK = false
+    }
 
     /**
      * Map中元素的数量
@@ -29,24 +36,27 @@ class BSTMap<K : Comparable<K>, V> : Map<K, V> {
         var result: V? = null
         fun put(x: Node<K, V>?): Node<K, V> {
             if (x == null) return Node(key, value)
-            when {
+            return when {
                 key < x.key -> {
                     x.left = put(x.left)
                     x.size = sizeOf(x.left) + sizeOf(x.right) + 1
+                    balance(x)
                 }
                 key > x.key -> {
                     x.right = put(x.right)
                     x.size = sizeOf(x.left) + sizeOf(x.right) + 1
+                    balance(x)
                 }
                 else -> {
                     result = x.value
                     x.value = value
+                    x
                 }
             }
-            return x
         }
 
         root = put(root)
+        root!!.color = BLACK
         return result
     }
 
@@ -173,68 +183,10 @@ class BSTMap<K : Comparable<K>, V> : Map<K, V> {
     }
 
     /**
-     * 删除最小键
-     */
-    fun removeMin() {
-        root = removeMin(root)
-    }
-
-    private fun removeMin(x: Node<K, V>?): Node<K, V>? {
-        if (x == null) return null
-        if (x.left == null) return x.right
-        x.left = removeMin(x.left)
-        x.size = sizeOf(x.left) + sizeOf(x.right) + 1
-        return x
-    }
-
-    /**
-     * 删除最大键
-     */
-    fun removeMax() {
-        root = removeMax(root)
-    }
-
-    private fun removeMax(x: Node<K, V>?): Node<K, V>? {
-        if (x == null) return null
-        if (x.right == null) return x.left
-        x.right = removeMax(x.right)
-        x.size = sizeOf(x.left) + sizeOf(x.right) + 1
-        return x
-    }
-
-    /**
      * 删除键[key]，返回所对应的值
      */
     override fun remove(key: K): V? {
-        var result: V? = null
-        fun remove(x: Node<K, V>?): Node<K, V>? {
-            if (x == null) return null
-            when {
-                key < x.key -> {
-                    x.left = remove(x.left)
-                    x.size = sizeOf(x.left) + sizeOf(x.right) + 1
-                    return x
-                }
-                key > x.key -> {
-                    x.right = remove(x.right)
-                    x.size = sizeOf(x.left) + sizeOf(x.right) + 1
-                    return x
-                }
-                else -> {
-                    result = x.value
-                    if (x.right == null) return x.left
-                    if (x.left == null) return x.right
-                    val t = min(x.right)!!
-                    t.right = removeMin(x.right)
-                    t.left = x.left
-                    t.size = sizeOf(t.left) + sizeOf(t.right) + 1
-                    return t
-                }
-            }
-        }
-
-        root = remove(root)
-        return result
+        TODO("Not yet implemented")
     }
 
     /**
@@ -261,10 +213,61 @@ class BSTMap<K : Comparable<K>, V> : Map<K, V> {
         return list
     }
 
+    /*
+      b(X)                    d(X)
+     / \         左旋         / \
+    a   d(R)    ----->    (R)b  e
+       / \                  / \
+      c   e                a   c
+     */
+    private fun rotateLeft(b: Node<K, V>): Node<K, V> {
+        val d = b.right!!
+        b.right = d.left
+        d.left = b
+        d.color = b.color
+        b.color = RED
+        b.size = sizeOf(b.left) + sizeOf(b.right) + 1
+        d.size = sizeOf(d.left) + sizeOf(d.right) + 1
+        return d
+    }
+
+    /*
+         d(X)                  b(X)
+        / \        右旋        / \
+    (R)b   e      ----->     a   d(R)
+      / \                       / \
+     a   c                     c   e
+     */
+    private fun rotateRight(d: Node<K, V>): Node<K, V> {
+        val b = d.left!!
+        d.left = b.right
+        b.right = d
+        b.color = d.color
+        d.color = RED
+        d.size = sizeOf(d.left) + sizeOf(d.right) + 1
+        b.size = sizeOf(b.left) + sizeOf(b.right) + 1
+        return b
+    }
+
+    private fun flipColors(x: Node<K, V>) {
+        x.color = RED
+        x.left!!.color = BLACK
+        x.right!!.color = BLACK
+    }
+
+    private fun balance(x: Node<K, V>): Node<K, V> {
+        var t = x
+        if (t.left?.color != RED && t.right?.color == RED) t = rotateLeft(t)
+        if (t.left?.color == RED && t.left?.left?.color == RED) t = rotateRight(t)
+        if (t.left?.color == RED && t.right?.color == RED) flipColors(t)
+        return t
+    }
+
     private class Node<K : Comparable<K>, V>(
         val key: K,
         var value: V,
         var size: Int = 1,
+        var color: Boolean = RED,
         var left: Node<K, V>? = null,
         var right: Node<K, V>? = null
     )

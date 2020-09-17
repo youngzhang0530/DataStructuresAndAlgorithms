@@ -71,8 +71,13 @@ internal class TSTMapTest {
         map["ab"] = 6
         map["abc"] = 7
         map["akd"] = 7
+        repeat(100000) {
+            map["$it"] = it
+        }
+        repeat(100000) {
+            map.remove("${99999 - it}")
+        }
         assertNull(map.remove("abcd"))
-        println(map.keysWithPrefix(""))
         assertIterableEquals(arrayListOf("a", "ab", "abc", "akd"), map.keys)
         assertEquals(7, map.remove("akd"))
         assertIterableEquals(arrayListOf("a", "ab", "abc"), map.keys)

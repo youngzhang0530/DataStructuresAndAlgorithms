@@ -90,18 +90,24 @@ class TSTMap<V> : Map<String, V> {
         var result: V? = null
         fun remove(x: Node<V>?, d: Int): Node<V>? {
             if (x == null) return null
+            val c = key[d]
             if (d == key.length - 1) {
-                if (x.value != null) size--
-                result = x.value
-                x.value = null
-                return when {
-                    x.mid != null -> x
-                    x.left == null -> x.right
-                    x.right == null -> x.left
-                    else -> x
+                when {
+                    c < x.c -> x.left = remove(x.left, d)
+                    c > x.c -> x.right = remove(x.right, d)
+                    else -> {
+                        if (x.value != null) size--
+                        result = x.value
+                        x.value = null
+                        return when {
+                            x.mid != null -> x
+                            x.left == null -> x.right
+                            x.right == null -> x.left
+                            else -> x
+                        }
+                    }
                 }
             }
-            val c = key[d]
             when {
                 c < x.c -> x.left = remove(x.left, d)
                 c > x.c -> x.right = remove(x.right, d)

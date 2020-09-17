@@ -100,6 +100,12 @@ internal class TrieMapTest {
         map["a"] = 5
         map["abc"] = 6
         map["abcd"] = 6
+        repeat(100000) {
+            map["$it"] = it
+        }
+        repeat(100000) {
+            map.remove("${99999 - it}")
+        }
         assertEquals(6, map.remove("abcd"))
         assertEquals(2, map.size)
         assertEquals(2, map.keys.count())

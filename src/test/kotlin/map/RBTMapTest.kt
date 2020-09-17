@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class BSTMapTest {
+internal class RBTMapTest {
 
-    private lateinit var map: BSTMap<String, Int>
+    private lateinit var map: RBTMap<String, Int>
 
     @BeforeEach
     fun setUp() {
-        map = BSTMap()
+        map = RBTMap()
     }
 
     @Test
@@ -129,53 +129,6 @@ internal class BSTMapTest {
         assertEquals("ac", map.ceiling("ab"))
     }
 
-    @Test
-    fun removeMin() {
-        map["abc"] = 6
-        map["a"] = 4
-        map["ab"] = 5
-        map["abcd"] = 4
-        map.removeMin()
-        assertEquals(3, map.size)
-        assertEquals("ab", map.min())
-        map.removeMin()
-        assertEquals(2, map.size)
-        assertEquals("abc", map.min())
-    }
-
-    @Test
-    fun removeMax() {
-        map["abc"] = 6
-        map["a"] = 4
-        map["ab"] = 5
-        map["abcd"] = 4
-        map.removeMax()
-        assertEquals(3, map.size)
-        assertEquals("abc", map.max())
-        map.removeMax()
-        assertEquals(2, map.size)
-        assertEquals("ab", map.max())
-    }
-
-    @Test
-    fun remove() {
-        map["abc"] = 6
-        map["a"] = 4
-        map["ab"] = 5
-        map["abcd"] = 8
-        repeat(100000) {
-            map["$it"] = it
-        }
-        repeat(100000) {
-            map.remove("${99999 - it}")
-        }
-        assertEquals(4, map.remove("a"))
-        assertEquals(3, map.size)
-        assertEquals("ab", map.min())
-        assertEquals(8, map.remove("abcd"))
-        assertEquals(2, map.size)
-        assertEquals("abc", map.max())
-    }
 
     @Test
     fun keys() {
@@ -184,8 +137,6 @@ internal class BSTMapTest {
         map["ab"] = 5
         map["abcd"] = 4
         assertEquals(4, map.keys.count())
-        map.remove("a")
-        assertEquals(3, map.keys.count())
     }
 
     @Test

@@ -28,10 +28,13 @@ internal class AVLMapTest {
         assertEquals(5, map["abc"])
         assertEquals(5, map.put("abc", 6))
         assertEquals(6, map["abc"])
-        repeat(1000000) {
+        repeat(100000) {
             map["$it"] = it
         }
-        assertEquals(1000001, map.size)
+        repeat(100000) {
+            assertEquals(it, map["$it"])
+        }
+        assertEquals(100001, map.size)
     }
 
     @Test
@@ -160,6 +163,12 @@ internal class AVLMapTest {
         map["a"] = 4
         map["ab"] = 5
         map["abcd"] = 8
+        repeat(100000) {
+            map["$it"] = it
+        }
+        repeat(100000) {
+            map.remove("${99999 - it}")
+        }
         assertEquals(4, map.remove("a"))
         assertEquals(3, map.size)
         assertEquals("ab", map.min())

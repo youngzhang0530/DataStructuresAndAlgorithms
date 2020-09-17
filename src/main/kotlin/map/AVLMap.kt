@@ -4,7 +4,7 @@ package map
  * 使用AVL树实现的Map
  * AVL树是最早提出的平衡二叉树。在AVL树中，任意一个节点的两棵子树最大高度差为1。
  * 因此AVL树可以保证极高的查询性能。但是在插入和删除时需要进行多次的旋转操作以保持树的平衡性。
- * 在增删较多的场景中，红黑树是更好的选择。
+ * 在查询较少、增删较多的场景中，红黑树是更好的选择。
  *
  * @constructor 创建一个AVL树
  */
@@ -81,26 +81,35 @@ class AVLMap<K : Comparable<K>, V> : Map<K, V> {
         var result: V? = null
         fun remove(x: Node<K, V>?): Node<K, V>? {
             if (x == null) return null
-            var ret: Node<K, V> = x
-            when {
-                key < x.key -> x.left = remove(x.left)
-                key > x.key -> x.right = remove(x.right)
+            return when {
+                key < x.key -> {
+                    x.left = remove(x.left)
+                    x.size = sizeOf(x.left) + sizeOf(x.right) + 1
+                    x.height = maxOf(heightOf(x.left), heightOf(x.right)) + 1
+                    balance(x)
+                }
+                key > x.key -> {
+                    x.right = remove(x.right)
+                    x.size = sizeOf(x.left) + sizeOf(x.right) + 1
+                    x.height = maxOf(heightOf(x.left), heightOf(x.right)) + 1
+                    balance(x)
+                }
                 else -> {
                     result = x.value
-                    when {
-                        x.right == null -> return x.left
-                        x.left == null -> return x.right
+                    return when {
+                        x.right == null -> x.left
+                        x.left == null -> x.right
                         else -> {
-                            ret = min(x.right)!!
-                            ret.left = x.left
-                            ret.right = removeMin(x.right)
+                            val t = min(x.right)!!
+                            t.right = removeMin(x.right)
+                            t.left = x.left
+                            t.size = sizeOf(t.left) + sizeOf(t.right) + 1
+                            t.height = maxOf(heightOf(t.left), heightOf(t.right)) + 1
+                            balance(t)
                         }
                     }
                 }
             }
-            ret.size = sizeOf(ret.left) + sizeOf(ret.right) + 1
-            ret.height = maxOf(heightOf(ret.left), heightOf(ret.right)) + 1
-            return balance(ret)
         }
 
         root = remove(root)
